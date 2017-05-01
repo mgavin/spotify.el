@@ -62,7 +62,9 @@
 (defun spotify-track-search (query)
   "Searches for tracks that match the given query string."
   (interactive "sSpotify Search (Tracks): ")
-  (let ((buffer (get-buffer-create (format "*Track Search: %s*" query))))
+  (let* ((buffer-name (format "*Track Search: %s*" query))
+         (display-buffer-alist (list `(,buffer-name display-buffer-same-window)))
+         (buffer (get-buffer-create (format "*Track Search: %s*" query))))
     (with-current-buffer buffer
       (spotify-track-search-mode)
       (spotify-track-search-set-list-format)
@@ -77,7 +79,9 @@
 (defun spotify-playlist-search (query)
   "Searches for playlists that match the given query string."
   (interactive "sSpotify Search (Playlists): ")
-  (let ((buffer (get-buffer-create (format "*Playlist Search: %s*" query))))
+  (let* ((buffer-name (format "*Playlist Search: %s*" query))
+         (display-buffer-alist (list `(,buffer-name display-buffer-same-window)))
+         (buffer (get-buffer-create buffer-name)))
     (with-current-buffer buffer
       (spotify-playlist-search-mode)
       (setq-local spotify-query query)
@@ -97,7 +101,9 @@
 (defun spotify-user-playlists (user-id)
   "Displays the public playlists of the given user."
   (interactive "sSpotify User ID: ")
-  (let ((buffer (get-buffer-create (format "*Playlists: %s*" user-id))))
+  (let* ((buffer-name (format "*Playlists: %s*" user-id))
+         (display-buffer-alist (list `(,buffer-name display-buffer-same-window)))
+         (buffer (get-buffer-create buffer-name)))
     (with-current-buffer buffer
       (spotify-playlist-search-mode)
       (setq-local spotify-user-id user-id)
@@ -111,7 +117,8 @@
 (defun spotify-featured-playlists ()
   "Displays Spotify's featured playlists."
   (interactive)
-  (let ((buffer (get-buffer-create "*Featured Playlists*")))
+  (let ((display-buffer-alist (list `("*Featured Playlists*" display-buffer-same-window)))
+        (buffer (get-buffer-create "*Featured Playlists*")))
     (with-current-buffer buffer
       (spotify-playlist-search-mode)
       (setq-local spotify-current-page 1)
@@ -130,3 +137,5 @@
     (message (format "Playlist '%s' created" (spotify-get-item-name new-playlist)))))
 
 (provide 'spotify)
+
+

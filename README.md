@@ -26,6 +26,7 @@ First, make sure your system satisfies the given dependencies:
 
 * Emacs 24.4+
 * Python 2.7+ (needed for the Oauth2 callback server)
+* Spotify
 
 To manually install spotify.el, just clone this project somewhere in your
 disk, add that directory in the `load-path`, and require the `spotify` module:
@@ -79,6 +80,9 @@ Finally, scroll to the end of the page and hit **Save**.
 ## Usage
 
 ### Starting A New Session
+
+First of all: open spotify. This makes it available to be remotely controlled 
+through dbus.
 
 In order to connect with the Spotify API and refresh the access token,
 run <kbd>M-x spotify-connect</kbd>. This will start the Oauth2 authentication

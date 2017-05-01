@@ -101,7 +101,9 @@
   (interactive)
   (let* ((selected-playlist (tabulated-list-get-id))
          (name (spotify-get-item-name selected-playlist)))
-    (let ((buffer (get-buffer-create (format "*Playlist Tracks: %s*" name))))
+    (let* ((buffer-name (format "*Playlist Tracks: %s*" name))
+           (display-buffer-alist (list `(,buffer-name display-buffer-same-window)))
+           (buffer (get-buffer-create buffer-name)))
       (with-current-buffer buffer
         (spotify-track-search-mode)
         (spotify-track-search-set-list-format)
